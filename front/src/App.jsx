@@ -28,7 +28,11 @@ export default function App() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    initProfiles(setProfiles);
+    if (db.hasFailed()) {
+      setError("Impossible d'ouvrir la base de données locale.");
+    } else {
+      initProfiles(setProfiles);
+    }
     return () => db.close();
   }, []);
 
@@ -51,16 +55,18 @@ export default function App() {
           Générateur d'attestation de déplacement dérogatoire - Covid-19
         </span>
         {error && (
-          <Alert severity="error" onClose={() => setError(null)}>
+          <MuiAlert
+            elevation={6}
+            variant="filled"
+            severity="error"
+            onClose={() => setError(null)}
+          >
             {error}
-          </Alert>
+          </MuiAlert>
         )}
       </header>
       <main>
         <Container maxWidth="lg">
-          {db.hasFailed() && (
-            <div>An error occured while opening the local database.</div>
-          )}
           <Grid container>
             <Grid item className={classes.reasons} xs={12} md={4}>
               <Reasons reason={reason} onChange={setReason} />
@@ -106,8 +112,4 @@ export default function App() {
       </footer>
     </div>
   );
-}
-
-function Alert(props) {
-  return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
