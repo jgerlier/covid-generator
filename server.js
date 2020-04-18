@@ -15,6 +15,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.post('/api/generate', (req, res) => {
   const parameters = req.body;
+
+  console.info(`New request from user ${parameters.userId}`);
+
   const uniqueId = uuid.v4();
   const dir = path.join('tmp', uniqueId);
 

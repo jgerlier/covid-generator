@@ -1,5 +1,6 @@
 import ProfileCard from '../components/ProfileCard';
 import EditProfileDialog from './EditProfileDialog';
+import AddIcon from '@material-ui/icons/Add';
 import React, { useState } from 'react';
 
 export default function AddProfile() {
@@ -11,6 +12,7 @@ export default function AddProfile() {
         onClick={() => setOpen(true)}
         actionSlot={
           <React.Fragment>
+            <AddIcon />
             <div>
               Ajouter
               <br />
