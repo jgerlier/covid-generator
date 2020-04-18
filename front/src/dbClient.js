@@ -41,8 +41,8 @@ export async function saveOrUpdateProfile(profile) {
   } else {
     db.transaction('rw', db.profiles, async () => {
       await db.profiles.add({
-        id: uuid(),
         ...profile,
+        id: uuid(),
       });
     }).catch((e) => {
       console.error(e);
