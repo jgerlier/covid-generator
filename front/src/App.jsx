@@ -6,6 +6,7 @@ import Profiles from './Profiles';
 import Container from '@material-ui/core/Container';
 import Dexie from 'dexie';
 import React, { useEffect, useState } from 'react';
+import { v4 as uuid } from 'uuid';
 
 const db = new Dexie('CovidGenerator');
 
@@ -34,7 +35,10 @@ function initProfiles(setProfiles) {
 
 function onProfileAdded(profile) {
   db.transaction('rw', db.profiles, async () => {
-    await db.profiles.add(profile);
+    await db.profiles.add({
+      id: uuid(),
+      ...profile,
+    });
   }).catch((e) => {
     // log any errors
     console.error(e);
