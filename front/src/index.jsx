@@ -2,6 +2,7 @@ import './index.css';
 
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import { CssBaseline } from '@material-ui/core';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -15,6 +16,7 @@ const darkTheme = createMuiTheme({
 ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={darkTheme}>
+      <CssBaseline />
       <App />
     </ThemeProvider>
   </React.StrictMode>,

@@ -46,12 +46,16 @@ export default function EditProfileDialog({
       onClose={handleClose}
       aria-labelledby="new-profile-dialog-title"
     >
-      <DialogTitle id="new-profile-dialog-title">Nouveau profil</DialogTitle>
+      <DialogTitle id="new-profile-dialog-title">
+        {initialValues.id ? 'Modifier le profil' : 'Nouveau profil'}
+      </DialogTitle>
       <form onSubmit={handleSubmit}>
         <DialogContent>
-          <DialogContentText>
-            Ce profil sera sauvegardé uniquement dans votre navigateur.
-          </DialogContentText>
+          {!initialValues.id && (
+            <DialogContentText>
+              Ce profil sera sauvegardé uniquement dans votre navigateur.
+            </DialogContentText>
+          )}
           <TextField
             defaultValue={initialValues.firstName}
             margin="dense"
@@ -91,7 +95,7 @@ export default function EditProfileDialog({
             defaultValue={initialValues.address}
             margin="dense"
             id="address"
-            label="Addresse (numéro et nom de la rue)"
+            label="Addresse"
             required
             fullWidth
           />
@@ -116,10 +120,15 @@ export default function EditProfileDialog({
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="primary">
+          <Button
+            onClick={handleClose}
+            color="primary"
+            type="button"
+            variant="contained"
+          >
             Annuler
           </Button>
-          <Button color="primary" type="submit">
+          <Button color="primary" type="submit" variant="contained">
             Valider
           </Button>
         </DialogActions>

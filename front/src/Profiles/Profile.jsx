@@ -1,27 +1,27 @@
 import ProfileCard from '../components/ProfileCard';
 import DeleteProfileDialog from './DeleteProfileDialog';
 import EditProfileDialog from './EditProfileDialog';
-import { Button } from '@material-ui/core';
-import React from 'react';
+import { Button, Typography } from '@material-ui/core';
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
+import React, { useState } from 'react';
 
 export default function Profile({ profile, onClick }) {
-  const [open, setOpen] = React.useState({
+  const [open, setOpen] = useState({
     edit: false,
     delete: false,
   });
-  const { firstName, lastName, birthDate } = profile;
+  const { firstName, lastName } = profile;
 
   return (
     <ProfileCard
       onClick={onClick}
       actionSlot={
-        <div>
+        <Typography variant="h5">
           {firstName}
           <br />
           {lastName}
-          <br />
-          {birthDate}
-        </div>
+        </Typography>
       }
       subActionsSlot={
         <React.Fragment>
@@ -29,15 +29,17 @@ export default function Profile({ profile, onClick }) {
             onClick={() => setOpen({ edit: true })}
             size="small"
             color="primary"
+            variant="contained"
           >
-            Modifier
+            <EditIcon />
           </Button>
           <Button
             onClick={() => setOpen({ delete: true })}
             size="small"
             color="primary"
+            variant="contained"
           >
-            Supprimer
+            <DeleteIcon />
           </Button>
           <EditProfileDialog
             open={open.edit}

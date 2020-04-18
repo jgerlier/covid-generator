@@ -6,9 +6,9 @@ import React from 'react';
 export default function Users({ profiles, onSelectProfile }) {
   return (
     <div>
-      <Grid container spacing={2}>
+      <Grid container spacing={2} justify="center">
         {profiles.map((profile) => (
-          <ProfileGrid>
+          <ProfileGrid key={profile.id}>
             <Profile
               profile={profile}
               onClick={() => onSelectProfile(profile)}
@@ -24,7 +24,7 @@ export default function Users({ profiles, onSelectProfile }) {
 }
 
 const ProfileGrid = ({ children, props }) => (
-  <Grid {...props} item xs={6} sm={4} md={3} lg={2}>
+  <Grid {...props} item xs={8} sm={6} md={4} lg={3}>
     {children}
   </Grid>
 );

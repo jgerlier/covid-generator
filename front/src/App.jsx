@@ -5,15 +5,14 @@ import { db, initProfiles } from './dbClient';
 import Profiles from './Profiles';
 import Reasons from './Reasons';
 import {
-  Backdrop, CircularProgress, Grid, makeStyles,
+  Backdrop, CircularProgress, Grid, Link, makeStyles,
 } from '@material-ui/core';
 import Container from '@material-ui/core/Container';
 import React, { useEffect, useState } from 'react';
 
 const useStyles = makeStyles((theme) => ({
   reasons: {
-    margin: 10,
-    marginBottom: 20,
+    paddingBottom: 20,
   },
   backdrop: {
     zIndex: theme.zIndex.drawer + 1,
@@ -41,17 +40,19 @@ export default function App() {
 
   return (
     <div className="App">
-      <header className="App-header">Ma super App</header>
+      <header className="App-header">
+        Générateur d'attestation de déplacement dérogatoire - Covid-19
+      </header>
       <main>
         <Container maxWidth="lg">
           {db.hasFailed() && (
             <div>An error occured while opening the local database.</div>
           )}
           <Grid container>
-            <Grid item className={classes.reasons}>
+            <Grid item className={classes.reasons} xs={12} md={4}>
               <Reasons reason={reason} onChange={setReason} />
             </Grid>
-            <Grid item>
+            <Grid item xs={12} md={8}>
               <Profiles
                 profiles={profiles}
                 db={db}
@@ -64,6 +65,32 @@ export default function App() {
           <CircularProgress color="inherit" />
         </Backdrop>
       </main>
+      <footer>
+        <Container maxWidth="md">
+          <p>
+            Ce site permet de générer une attestation de déplacement dérogatoire
+            dans le cadre du confinement dû au Covid-19, en utilisant des
+            profils sauvegardables. Le PDF est généré directement par{' '}
+            <Link href="https://media.interieur.gouv.fr/deplacement-covid-19/">
+              le générateur officiel du ministère de l'intérieur
+            </Link>
+            .
+          </p>
+          <p>
+            Aucune de vos données n'est stockée sur un serveur distant. Le PDF
+            de votre attestation est stocké très brièvement le temps de son
+            téléchargement, mais il est téléchargé localement et est supprimé du
+            serveur avant qu'on vous propose de l'enregistrer.
+          </p>
+          <p>
+            L'ensemble du code source est disponible sur{' '}
+            <Link href="https://github.com/jgerlier/covid-generator">
+              Github
+            </Link>
+            .
+          </p>
+        </Container>
+      </footer>
     </div>
   );
 }
