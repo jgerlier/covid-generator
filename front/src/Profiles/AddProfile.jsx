@@ -1,13 +1,23 @@
-import { Card, CardActionArea } from '@material-ui/core';
+import ProfileCard from '../components/ProfileCard';
+import EditProfileDialog from './EditProfileDialog';
 import React from 'react';
 
-export default function AddProfile({ onClick }) {
+export default function AddProfile() {
+  const [open, setOpen] = React.useState(false);
+
   return (
-    <Card>
-      <CardActionArea onClick={onClick}>
-        Ajouter un profil
-        <br />
-      </CardActionArea>
-    </Card>
+    <ProfileCard
+      onClick={() => setOpen(true)}
+      actionSlot={
+        <React.Fragment>
+          <div>
+            Ajouter
+            <br />
+            un profil
+          </div>
+          <EditProfileDialog open={open} onClose={() => setOpen(false)} />
+        </React.Fragment>
+      }
+    />
   );
 }

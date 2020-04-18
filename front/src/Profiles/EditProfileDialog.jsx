@@ -1,26 +1,41 @@
+import { saveOrUpdateProfile } from '../dbClient';
 import {
   Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
   TextField,
 } from '@material-ui/core';
 import React from 'react';
 
-export default function NewProfileModal({ open, onSubmit, onCancel }) {
+export default function EditProfileDialog({
+  open,
+  onClose: handleClose,
+  initialValues = {
+    id: null,
+    firstName: '',
+    lastName: '',
+    birthDate: '',
+    locales: '',
+    birthCity: '',
+    address: '',
+    zipcode: '',
+    city: '',
+  },
+}) {
   function handleSubmit(event) {
     event.preventDefault();
 
     const profile = {
+      id: initialValues.id,
       firstName: event.target.firstName.value.trim(),
       lastName: event.target.lastName.value.trim(),
-      birthDate: new Date(event.target.birthDate.value).toLocaleDateString({
-        locales: 'fr_FR',
-      }),
+      birthDate: event.target.birthDate.value,
       birthCity: event.target.birthCity.value.trim(),
       address: event.target.address.value.trim(),
       zipcode: event.target.zipcode.value,
       city: event.target.city.value.trim(),
     };
 
-    onSubmit(profile);
+    saveOrUpdateProfile(profile);
+    handleClose();
   }
 
   const today = new Date().toISOString().slice(0, 10);
@@ -28,7 +43,7 @@ export default function NewProfileModal({ open, onSubmit, onCancel }) {
   return (
     <Dialog
       open={open}
-      onClose={onCancel}
+      onClose={handleClose}
       aria-labelledby="new-profile-dialog-title"
     >
       <DialogTitle id="new-profile-dialog-title">Nouveau profil</DialogTitle>
@@ -38,6 +53,7 @@ export default function NewProfileModal({ open, onSubmit, onCancel }) {
             Ce profil sera sauvegardée uniquement dans votre navigateur actuel.
           </DialogContentText>
           <TextField
+            defaultValue={initialValues.firstName}
             margin="dense"
             id="firstName"
             label="Prénom"
@@ -45,6 +61,7 @@ export default function NewProfileModal({ open, onSubmit, onCancel }) {
             fullWidth
           />
           <TextField
+            defaultValue={initialValues.lastName}
             margin="dense"
             id="lastName"
             label="Nom"
@@ -52,6 +69,7 @@ export default function NewProfileModal({ open, onSubmit, onCancel }) {
             fullWidth
           />
           <TextField
+            defaultValue={initialValues.birthDate}
             margin="dense"
             id="birthDate"
             label="Date de naissance"
@@ -62,6 +80,7 @@ export default function NewProfileModal({ open, onSubmit, onCancel }) {
             fullWidth
           />
           <TextField
+            defaultValue={initialValues.birthCity}
             margin="dense"
             id="birthCity"
             label="Ville de naissance"
@@ -69,6 +88,7 @@ export default function NewProfileModal({ open, onSubmit, onCancel }) {
             fullWidth
           />
           <TextField
+            defaultValue={initialValues.address}
             margin="dense"
             id="address"
             label="Addresse (numéro et nom de la rue)"
@@ -76,6 +96,7 @@ export default function NewProfileModal({ open, onSubmit, onCancel }) {
             fullWidth
           />
           <TextField
+            defaultValue={initialValues.zipcode}
             margin="dense"
             id="zipcode"
             label="Code postal"
@@ -86,6 +107,7 @@ export default function NewProfileModal({ open, onSubmit, onCancel }) {
             }}
           />
           <TextField
+            defaultValue={initialValues.city}
             margin="dense"
             id="city"
             label="Ville de résidence"
@@ -94,7 +116,7 @@ export default function NewProfileModal({ open, onSubmit, onCancel }) {
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={onCancel} color="primary">
+          <Button onClick={handleClose} color="primary">
             Annuler
           </Button>
           <Button color="primary" type="submit">

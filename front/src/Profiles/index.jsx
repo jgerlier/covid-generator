@@ -1,41 +1,32 @@
 import AddProfile from './AddProfile';
-import NewProfileModal from './NewProfileModal';
 import Profile from './Profile';
 import { Grid } from '@material-ui/core';
 import React from 'react';
 
-export default function Users({ profiles, onProfileAdded, onProfileSelected }) {
-  const [open, setOpen] = React.useState(false);
-
-  function handleSubmit(profile) {
-    setOpen(false);
-    onProfileAdded(profile);
-  }
-
+export default function Users({ profiles, onSelectProfile }) {
   return (
     <div>
       <Grid container spacing={2}>
-        <Grid item xs={12}>
-          <Grid container justify="center" spacing={2}>
-            {profiles.map((profile) => (
-              <Grid key={profile.id} item>
-                <Profile
-                  profile={profile}
-                  onClick={() => onProfileSelected(profile)}
-                />
-              </Grid>
-            ))}
-            <Grid item>
-              <AddProfile onClick={() => setOpen(true)} />
-            </Grid>
-          </Grid>
-        </Grid>
+        {profiles.map((profile) => (
+          <ProfileGrid>
+            <Profile
+              profile={profile}
+              onClick={() => onSelectProfile(profile)}
+            />
+          </ProfileGrid>
+        ))}
       </Grid>
-      <NewProfileModal
-        open={open}
-        onCancel={() => setOpen(false)}
-        onSubmit={handleSubmit}
-      />
+      <Grid container spacing={2}>
+        <ProfileGrid>
+          <AddProfile />
+        </ProfileGrid>
+      </Grid>
     </div>
   );
 }
+
+const ProfileGrid = ({ children, props }) => (
+  <Grid {...{ props }} item xs={6} sm={4} md={3} lg={2}>
+    {children}
+  </Grid>
+);

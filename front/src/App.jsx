@@ -1,51 +1,12 @@
 import './App.scss';
-import 'dexie-observable';
 
 import { generateDocument } from './apiClient.js';
+import { db, initProfiles } from './dbClient';
 import Profiles from './Profiles';
 import Container from '@material-ui/core/Container';
-import Dexie from 'dexie';
 import React, { useEffect, useState } from 'react';
-import { v4 as uuid } from 'uuid';
 
-const db = new Dexie('CovidGenerator');
-
-function initProfiles(setProfiles) {
-  function setProfilesFromDb() {
-    db.transaction('r', db.profiles, async () => {
-      setProfiles(await db.profiles.toArray());
-    }).catch((e) => {
-      // log any errors
-      console.error(e);
-    });
-  }
-
-  db.version(1).stores({ profiles: 'id' });
-
-  // initial state fetched from DB
-  setProfilesFromDb();
-
-  // update state on any profile change in the DB
-  db.on('changes', (changes) => {
-    if (changes.find(({ table }) => table === 'profiles')) {
-      setProfilesFromDb();
-    }
-  });
-}
-
-function onProfileAdded(profile) {
-  db.transaction('rw', db.profiles, async () => {
-    await db.profiles.add({
-      id: uuid(),
-      ...profile,
-    });
-  }).catch((e) => {
-    // log any errors
-    console.error(e);
-  });
-}
-
-function handleProfileSelected(profile) {
+function handleSelectProfile(profile) {
   generateDocument(profile, 'sport');
 }
 
@@ -67,8 +28,8 @@ export default function App() {
           )}
           <Profiles
             profiles={profiles}
-            onProfileAdded={onProfileAdded}
-            onProfileSelected={(profile) => handleProfileSelected(profile)}
+            db={db}
+            onSelectProfile={(profile) => handleSelectProfile(profile)}
           />
         </Container>
       </main>
