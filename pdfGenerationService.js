@@ -23,9 +23,7 @@ export async function generatePdf(
 
   await page.goto(covidFormUrl);
 
-  const frBirthDate = new Date(birthDate).toLocaleDateString({
-    locales: 'fr_FR',
-  });
+  const frBirthDate = new Date(birthDate).toLocaleDateString('fr-FR');
 
   await page.type('#field-firstname', firstName);
   await page.type('#field-lastname', lastName);

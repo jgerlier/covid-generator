@@ -78,8 +78,7 @@ export default function EditProfileDialog({
             id="birthDate"
             label="Date de naissance"
             type="date"
-            max={today}
-            InputProps={{ startAdornment: ' ' }}
+            InputProps={{ startAdornment: ' ', max: today }}
             required
             fullWidth
           />

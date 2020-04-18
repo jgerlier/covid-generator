@@ -8,6 +8,7 @@ import {
   Backdrop, CircularProgress, Grid, Link, makeStyles,
 } from '@material-ui/core';
 import Container from '@material-ui/core/Container';
+import MuiAlert from '@material-ui/lab/Alert';
 import React, { useEffect, useState } from 'react';
 
 const useStyles = makeStyles((theme) => ({
@@ -24,6 +25,7 @@ export default function App() {
   const [profiles, setProfiles] = useState([]);
   const [reason, setReason] = useState('sport');
   const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     initProfiles(setProfiles);
@@ -32,7 +34,11 @@ export default function App() {
 
   async function handleSelectProfile(profile) {
     setSubmitting(true);
-    await generateDocument(profile, reason);
+    try {
+      await generateDocument(profile, reason);
+    } catch (ex) {
+      setError('Une erreur est survenue pendant la génération');
+    }
     setSubmitting(false);
   }
 
@@ -41,7 +47,14 @@ export default function App() {
   return (
     <div className="App">
       <header className="App-header">
-        Générateur d'attestation de déplacement dérogatoire - Covid-19
+        <span>
+          Générateur d'attestation de déplacement dérogatoire - Covid-19
+        </span>
+        {error && (
+          <Alert severity="error" onClose={() => setError(null)}>
+            {error}
+          </Alert>
+        )}
       </header>
       <main>
         <Container maxWidth="lg">
@@ -93,4 +106,8 @@ export default function App() {
       </footer>
     </div>
   );
+}
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
