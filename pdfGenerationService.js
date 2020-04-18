@@ -4,7 +4,10 @@ import puppeteer from 'puppeteer';
 
 const covidFormUrl = 'https://media.interieur.gouv.fr/deplacement-covid-19/';
 
-const browserPromise = puppeteer.launch({ headless: true });
+const browserPromise = puppeteer.launch({
+  headless: true,
+  args: ['--no-sandbox'],
+});
 
 export async function generatePdf(
   dir,
