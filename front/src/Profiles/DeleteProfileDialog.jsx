@@ -27,7 +27,7 @@ export default function DeleteProfileDialog({
         <DialogContent>
           <DialogContentText>
             Êtes vous sûr de vouloir supprimer le profil de
-            {profile.firstName} {profile.lastName} ?
+            {` ${profile.firstName} ${profile.lastName}`} ?
           </DialogContentText>
         </DialogContent>
         <DialogActions>

@@ -15,8 +15,6 @@ export default function Users({ profiles, onSelectProfile }) {
             />
           </ProfileGrid>
         ))}
-      </Grid>
-      <Grid container spacing={2}>
         <ProfileGrid>
           <AddProfile />
         </ProfileGrid>
@@ -26,7 +24,7 @@ export default function Users({ profiles, onSelectProfile }) {
 }
 
 const ProfileGrid = ({ children, props }) => (
-  <Grid {...{ props }} item xs={6} sm={4} md={3} lg={2}>
+  <Grid {...props} item xs={6} sm={4} md={3} lg={2}>
     {children}
   </Grid>
 );

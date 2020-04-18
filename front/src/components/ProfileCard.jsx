@@ -21,7 +21,7 @@ const useStyles = makeStyles({
 export default function ProfileCard({ onClick, actionSlot, subActionsSlot }) {
   const classes = useStyles();
   return (
-    <Card className={classes.root}>
+    <Card className={classes.root} color="primary">
       <CardActionArea className={classes.action} onClick={onClick}>
         {actionSlot}
       </CardActionArea>

@@ -50,7 +50,7 @@ export default function EditProfileDialog({
       <form onSubmit={handleSubmit}>
         <DialogContent>
           <DialogContentText>
-            Ce profil sera sauvegardée uniquement dans votre navigateur actuel.
+            Ce profil sera sauvegardé uniquement dans votre navigateur.
           </DialogContentText>
           <TextField
             defaultValue={initialValues.firstName}
