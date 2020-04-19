@@ -6,7 +6,7 @@ import { Footer } from './Footer';
 import Profiles from './Profiles';
 import Reasons from './Reasons';
 import {
-  Backdrop, CircularProgress, Grid, Link, makeStyles,
+  Backdrop, CircularProgress, Grid, makeStyles,
 } from '@material-ui/core';
 import Container from '@material-ui/core/Container';
 import MuiAlert from '@material-ui/lab/Alert';
