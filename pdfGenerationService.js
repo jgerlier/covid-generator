@@ -9,6 +9,7 @@ const browserPromise = puppeteer.launch({
   headless: true,
   args: ['--no-sandbox', '--lang=fr-FR'],
   env: {
+    ...process.env,
     TZ: 'Europe/Paris',
   },
 });
