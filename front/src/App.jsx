@@ -2,6 +2,7 @@ import './App.scss';
 
 import { generateDocument } from './apiClient.js';
 import { db, initProfiles } from './dbClient';
+import { Footer } from './Footer';
 import Profiles from './Profiles';
 import Reasons from './Reasons';
 import {
@@ -73,6 +74,11 @@ export default function App() {
               <Reasons reason={reason} onChange={setReason} />
             </Grid>
             <Grid item xs={12} md={8}>
+              {profiles.length > 0 ? (
+                <p>Cliquez sur un profil pour télécharger son attestation :</p>
+              ) : (
+                <p>Créez un nouveau profil pour générer son attestation :</p>
+              )}
               <Profiles
                 profiles={profiles}
                 db={db}
@@ -85,32 +91,7 @@ export default function App() {
           <CircularProgress color="inherit" />
         </Backdrop>
       </main>
-      <footer>
-        <Container maxWidth="md">
-          <p>
-            Ce site permet de générer une attestation de déplacement dérogatoire
-            dans le cadre du confinement dû au Covid-19, en utilisant des
-            profils sauvegardables. Le PDF est généré directement par{' '}
-            <Link href="https://media.interieur.gouv.fr/deplacement-covid-19/">
-              le générateur officiel du ministère de l'intérieur
-            </Link>
-            .
-          </p>
-          <p>
-            Aucune de vos données n'est stockée sur un serveur distant. Le PDF
-            de votre attestation est supprimé du serveur directement après que
-            vous l'ayez téléchargé ou au plus tard 5 minutes après sa création
-            via un nettoyage automatique.
-          </p>
-          <p>
-            L'ensemble du code source est disponible sur{' '}
-            <Link href="https://github.com/jgerlier/covid-generator">
-              Github
-            </Link>
-            .
-          </p>
-        </Container>
-      </footer>
+      <Footer />
     </div>
   );
 }

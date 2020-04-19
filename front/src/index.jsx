@@ -10,6 +10,9 @@ import ReactDOM from 'react-dom';
 const darkTheme = createMuiTheme({
   palette: {
     type: 'dark',
+    primary: {
+      main: '#90caf9',
+    },
   },
 });
 

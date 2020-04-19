@@ -9,7 +9,7 @@ export default function Reasons({ reason, onChange: handleChange }) {
       <FormLabel component="legend">Raison du déplacement</FormLabel>
       <RadioGroup
         aria-label="raison"
-        name="gender1"
+        name="reason"
         value={reason}
         onChange={({ target: { value } }) => handleChange(value)}
       >

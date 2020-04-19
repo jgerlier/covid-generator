@@ -4,6 +4,7 @@ import EditProfileDialog from './EditProfileDialog';
 import { Button, Typography } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
+import GetAppIcon from '@material-ui/icons/GetApp';
 import React, { useState } from 'react';
 
 export default function Profile({ profile, onClick }) {
@@ -18,6 +19,8 @@ export default function Profile({ profile, onClick }) {
       onClick={onClick}
       actionSlot={
         <Typography variant="h5">
+          <GetAppIcon />
+          <br />
           {firstName}
           <br />
           {lastName}
