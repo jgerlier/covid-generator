@@ -70,7 +70,7 @@ function getCheckboxIdFrom(reason) {
     case 'health':
       return '#checkbox-sante';
     case 'familyAssistance':
-      return '#checkbox-family';
+      return '#checkbox-famille';
     case 'legal':
       return '#checkbox-judiciaire';
     case 'mandatoryMissions':
