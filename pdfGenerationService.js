@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import puppeteer from 'puppeteer';
+import util from 'util';
 
 const covidFormUrl = 'https://media.interieur.gouv.fr/deplacement-covid-19/';
 
@@ -37,7 +38,18 @@ export async function generatePdf(
 
   await page.click('#generate-btn');
 
-  return await waitForFile(dir, 2000);
+  const filename = await waitForFile(dir, 2000);
+
+  const newFilename = path
+    .basename(filename)
+    .replace(/.pdf$/, `_${firstName}_${lastName}.pdf`);
+
+  await util.promisify(fs.rename)(
+    path.resolve(path.join(dir, filename)),
+    path.resolve(path.join(dir, newFilename))
+  );
+
+  return newFilename;
 }
 
 function getCheckboxIdFrom(reason) {
@@ -59,7 +71,7 @@ function getCheckboxIdFrom(reason) {
   }
 }
 
-const fileNameRegex = /.+.pdf$/;
+export const fileNameRegex = /.+.pdf$/;
 
 async function waitForFile(dir, timeoutMs) {
   return new Promise((resolve, reject) => {
@@ -84,7 +96,7 @@ async function waitForFile(dir, timeoutMs) {
     function succeed(fileName) {
       clearTimeout(timer);
       watcher.close();
-      resolve(path.resolve(path.join(dir, fileName)));
+      resolve(fileName);
     }
 
     fs.readdir(dir, (err, files) => {

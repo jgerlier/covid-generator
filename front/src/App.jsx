@@ -41,6 +41,7 @@ export default function App() {
     try {
       await generateDocument(profile, reason);
     } catch (ex) {
+      console.error(ex);
       setError('Une erreur est survenue pendant la génération');
     }
     setSubmitting(false);
@@ -97,9 +98,9 @@ export default function App() {
           </p>
           <p>
             Aucune de vos données n'est stockée sur un serveur distant. Le PDF
-            de votre attestation est stocké très brièvement le temps de son
-            téléchargement, mais il est téléchargé localement et est supprimé du
-            serveur avant qu'on vous propose de l'enregistrer.
+            de votre attestation est supprimé du serveur directement après que
+            vous l'ayez téléchargé ou au plus tard 5 minutes après sa création
+            via un nettoyage automatique.
           </p>
           <p>
             L'ensemble du code source est disponible sur{' '}

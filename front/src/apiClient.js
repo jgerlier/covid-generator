@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { saveAs } from 'file-saver';
 import { v4 as uuid } from 'uuid';
 
 export async function generateDocument(profile, reason) {
@@ -9,17 +8,16 @@ export async function generateDocument(profile, reason) {
     localStorage.setItem('userId', userId);
   }
 
-  const { data, headers } = await axios.post(
-    '/api/generate',
-    {
-      ...profile,
-      reason,
-      userId,
-    },
-    { responseType: 'blob' }
-  );
+  const {
+    data: { fileLink, filename },
+  } = await axios.post('/api/generate', {
+    ...profile,
+    reason,
+    userId,
+  });
 
-  const filename = headers['content-disposition'].match(/filename="(.*)"$/)[1];
-
-  saveAs(data, filename);
+  const a = document.createElement('a');
+  a.href = fileLink;
+  a.download = filename || 'download';
+  a.click();
 }
