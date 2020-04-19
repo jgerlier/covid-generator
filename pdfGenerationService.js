@@ -5,14 +5,16 @@ import util from 'util';
 
 const covidFormUrl = 'https://media.interieur.gouv.fr/deplacement-covid-19/';
 
+const browserPromise = puppeteer.launch({
+  headless: true,
+  args: ['--no-sandbox'],
+});
+
 export async function generatePdf(
   dir,
   { firstName, lastName, birthDate, birthCity, address, zipcode, city, reason }
 ) {
-  const browser = await puppeteer.launch({
-    headless: true,
-    args: ['--no-sandbox'],
-  });
+  const browser = await browserPromise;
   const page = await browser.newPage();
   await page.setViewport({ width: 1920, height: 926 });
   page._client.send('Page.setDownloadBehavior', {
@@ -43,8 +45,8 @@ export async function generatePdf(
     .replace(/.pdf$/, `_${firstName}_${lastName}.pdf`);
 
   await Promise.all([
-    browser.close(),
-    util.promisify(fs.rename)(
+    page.close(),
+    await util.promisify(fs.rename)(
       path.resolve(path.join(dir, filename)),
       path.resolve(path.join(dir, newFilename))
     ),
