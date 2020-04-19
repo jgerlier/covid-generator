@@ -7,7 +7,10 @@ const covidFormUrl = 'https://media.interieur.gouv.fr/deplacement-covid-19/';
 
 const browserPromise = puppeteer.launch({
   headless: true,
-  args: ['--no-sandbox'],
+  args: ['--no-sandbox', '--lang=fr-FR'],
+  env: {
+    TZ: 'Europe/Paris',
+  },
 });
 
 export async function generatePdf(
