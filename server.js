@@ -73,12 +73,7 @@ app.get('/api/generate/:dirId', async (req, res) => {
 
 function sendFile(res, filePath) {
   return new Promise((resolve, reject) => {
-    res.setHeader('Content-Type', `application/pdf`);
-    res.setHeader(
-      'Content-Disposition',
-      `attachment; filename="${path.basename(filePath)}"`
-    );
-    res.sendFile(filePath, (err) => {
+    res.download(filePath, path.basename(filePath), (err) => {
       if (err) {
         reject(err);
       } else {

@@ -17,5 +17,12 @@ export async function generateDocument(profile, reason) {
     userId,
   });
 
-  saveAs(fileLink, filename);
+  //saveAs(fileLink, filename);
+
+  const a = document.createElement('a');
+  a.href = fileLink;
+  a.download = filename || 'download';
+  //document.body.appendChild(a);
+  a.click();
+  //document.body.removeChild(a);
 }
