@@ -15,10 +15,9 @@ export function Footer() {
           .
         </p>
         <p>
-          Aucune de vos données n'est stockée sur un serveur distant. Le PDF de
-          votre attestation est supprimé du serveur directement après que vous
-          l'ayez téléchargé ou au plus tard 5 minutes après sa création via un
-          nettoyage automatique.
+          Aucune de vos données n'est stockée sur un serveur distant de manière
+          permanente. Le PDF de votre attestation est automatiquement supprimé
+          du serveur 5 minutes après sa création.
         </p>
         <p>
           L'ensemble du code source est disponible sur{' '}

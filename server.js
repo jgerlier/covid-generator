@@ -67,8 +67,6 @@ app.get('/api/generate/:dirId', async (req, res) => {
     res.sendStatus(403);
     return;
   }
-
-  cleanUp(dir);
 });
 
 function sendFile(res, filePath) {
