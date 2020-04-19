@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { saveAs } from 'file-saver';
 import { v4 as uuid } from 'uuid';
 
 export async function generateDocument(profile, reason) {
@@ -22,7 +21,5 @@ export async function generateDocument(profile, reason) {
   const a = document.createElement('a');
   a.href = fileLink;
   a.download = filename || 'download';
-  //document.body.appendChild(a);
   a.click();
-  //document.body.removeChild(a);
 }
