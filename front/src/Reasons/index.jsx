@@ -1,5 +1,10 @@
 import {
-  FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, withStyles,
+  FormControl,
+  FormControlLabel,
+  FormLabel,
+  Radio,
+  RadioGroup,
+  withStyles,
 } from '@material-ui/core';
 import React from 'react';
 
@@ -13,11 +18,13 @@ export default function Reasons({ reason, onChange: handleChange }) {
         value={reason}
         onChange={({ target: { value } }) => handleChange(value)}
       >
-        <ReasonFormControlLabel value="sport" label="Sport / promenade" />
         <ReasonFormControlLabel value="work" label="Travail" />
-        <ReasonFormControlLabel value="shopping" label="Courses" />
+        <ReasonFormControlLabel value="shopping" label="Achats" />
+        <ReasonFormControlLabel value="sport" label="Sport / promenade" />
+        <ReasonFormControlLabel value="children" label="Enfants" />
         <ReasonFormControlLabel value="health" label="Santé" />
         <ReasonFormControlLabel value="familyAssistance" label="Familiale" />
+        <ReasonFormControlLabel value="handicap" label="Handicap" />
         <ReasonFormControlLabel
           value="legal"
           label="Convocation judiciaire ou administrative"

@@ -1,5 +1,4 @@
-~~Deployed at https://covid-generator.herokuapp.com/~~
-The website is not useful anymore now that the form is not needed to go out.
+Deployed at https://covid-generator.herokuapp.com/
 
 ## How is the PDF generated ?
 

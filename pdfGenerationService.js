@@ -33,10 +33,17 @@ export async function generatePdf(
   await page.type('#field-firstname', firstName);
   await page.type('#field-lastname', lastName);
   await page.type('#field-birthday', frBirthDate);
-  await page.type('#field-lieunaissance', birthCity);
+  await page.type('#field-placeofbirth', birthCity);
   await page.type('#field-address', address);
-  await page.type('#field-town', city);
+  await page.type('#field-city', city);
   await page.type('#field-zipcode', zipcode);
+  await page.type(
+    '#field-heuresortie',
+    new Date().toLocaleString('fr-FR', {
+      hour: '2-digit',
+      minute: '2-digit',
+    })
+  );
 
   await page.click(getCheckboxIdFrom(reason));
 
@@ -63,18 +70,22 @@ function getCheckboxIdFrom(reason) {
   switch (reason) {
     case 'work':
       return '#checkbox-travail';
-    case 'shopping':
-      return '#checkbox-courses';
-    case 'sport':
-      return '#checkbox-sport';
+    case 'supply':
+      return '#checkbox-achats';
     case 'health':
       return '#checkbox-sante';
     case 'familyAssistance':
       return '#checkbox-famille';
+    case 'handicap':
+      return '#checkbox-handicap';
+    case 'sport':
+      return '#checkbox-sport_animaux';
     case 'legal':
-      return '#checkbox-judiciaire';
+      return '#checkbox-convocation';
     case 'mandatoryMissions':
       return '#checkbox-missions';
+    case 'children':
+      return '#checkbox-enfants';
   }
 }
 
