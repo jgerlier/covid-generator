@@ -94,7 +94,7 @@ export const fileNameRegex = /.+.pdf$/;
 async function waitForFile(dir, timeoutMs) {
   return new Promise((resolve, reject) => {
     const timer = setTimeout(() => {
-      fail(new Error('Timeout', timeoutMs));
+      fail(new Error(`Timeout: ${timeoutMs} ms`));
     }, timeoutMs);
 
     const watcher = fs.watch(dir, (eventType, fileName) => {

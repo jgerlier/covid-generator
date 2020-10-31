@@ -1,10 +1,13 @@
-import { fileNameRegex, generatePdf } from './pdfGenerationService';
+import {
+  fileNameRegex,
+  generatePdf,
+} from './pdfGenerationService';
 import bodyParser from 'body-parser';
 import express from 'express';
 import { promises as fs } from 'fs';
 import path from 'path';
 import rimraf from 'rimraf';
-import uuid from 'uuid';
+import { v4 as uuid } from 'uuid';
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -27,7 +30,7 @@ app.post('/api/generate', async (req, res) => {
 
   console.info(`New generation request from user ${payload.userId}`);
 
-  const dirId = uuid.v4();
+  const dirId = uuid();
   const dir = path.join('tmp', dirId);
 
   try {
