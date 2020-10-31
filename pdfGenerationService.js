@@ -49,7 +49,7 @@ export async function generatePdf(
 
   await page.click('#generate-btn');
 
-  const filename = await waitForFile(dir, 2000);
+  const filename = await waitForFile(dir, 10000);
 
   const newFilename = path
     .basename(filename)
@@ -94,7 +94,7 @@ export const fileNameRegex = /.+.pdf$/;
 async function waitForFile(dir, timeoutMs) {
   return new Promise((resolve, reject) => {
     const timer = setTimeout(() => {
-      fail(new Error(timeoutMs));
+      fail(new Error('Timeout', timeoutMs));
     }, timeoutMs);
 
     const watcher = fs.watch(dir, (eventType, fileName) => {
