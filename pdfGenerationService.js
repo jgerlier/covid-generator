@@ -49,7 +49,17 @@ export async function generatePdf(
 
   await page.click('#generate-btn');
 
-  const filename = await waitForFile(dir, 10000);
+  let filename;
+  try {
+    filename = await waitForFile(dir, 10000);
+  } catch (error) {
+    console.warn(
+      `An error occured, let's try again with link in the dom`,
+      error
+    );
+    page.click('a[download]');
+    filename = await waitForFile(dir, 10000);
+  }
 
   const newFilename = path
     .basename(filename)
