@@ -47,12 +47,13 @@ export async function generatePdf(
   await page.type('#field-address', address);
   await page.type('#field-city', city);
   await page.type('#field-zipcode', zipcode);
-  await page.type(
+  await page.$eval(
     '#field-heuresortie',
-    new Date().toLocaleString('fr-FR', {
-      hour: '2-digit',
-      minute: '2-digit',
-    })
+    (el) =>
+      (el.value = new Date().toLocaleString('fr-FR', {
+        hour: '2-digit',
+        minute: '2-digit',
+      }))
   );
 
   await page.click(getCheckboxIdFrom(reason));
