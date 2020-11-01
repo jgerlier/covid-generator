@@ -1,16 +1,25 @@
 import './App.scss';
 
 import { generateDocument } from './apiClient.js';
-import { db, initProfiles } from './dbClient';
+import {
+  db,
+  initProfiles,
+} from './dbClient';
 import { Footer } from './Footer';
 import Profiles from './Profiles';
 import Reasons from './Reasons';
 import {
-  Backdrop, CircularProgress, Grid, makeStyles,
+  Backdrop,
+  CircularProgress,
+  Grid,
+  makeStyles,
 } from '@material-ui/core';
 import Container from '@material-ui/core/Container';
 import MuiAlert from '@material-ui/lab/Alert';
-import React, { useEffect, useState } from 'react';
+import React, {
+  useEffect,
+  useState,
+} from 'react';
 
 const useStyles = makeStyles((theme) => ({
   reasons: {
@@ -40,7 +49,8 @@ export default function App() {
   async function handleSelectProfile(profile) {
     setSubmitting(true);
     try {
-      await generateDocument(profile, reason);
+      const debug = !!new URL(window.location).searchParams.get('debug');
+      await generateDocument(profile, reason, debug);
     } catch (ex) {
       console.error(ex);
       setError('Une erreur est survenue pendant la génération');

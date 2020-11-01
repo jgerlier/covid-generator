@@ -16,7 +16,17 @@ const browserPromise = puppeteer.launch({
 
 export async function generatePdf(
   dir,
-  { firstName, lastName, birthDate, birthCity, address, zipcode, city, reason }
+  {
+    firstName,
+    lastName,
+    birthDate,
+    birthCity,
+    address,
+    zipcode,
+    city,
+    reason,
+    debug,
+  }
 ) {
   const browser = await browserPromise;
   const page = await browser.newPage();
@@ -47,6 +57,38 @@ export async function generatePdf(
 
   await page.click(getCheckboxIdFrom(reason));
 
+  if (debug) {
+    const fields = [
+      '#field-firstname',
+      '#field-lastname',
+      '#field-birthday',
+      '#field-placeofbirth',
+      '#field-address',
+      '#field-city',
+      '#field-zipcode',
+      '#field-heuresortie',
+    ];
+    const checkboxes = [
+      '#checkbox-travail',
+      '#checkbox-achats',
+      '#checkbox-sante',
+      '#checkbox-famille',
+      '#checkbox-handicap',
+      '#checkbox-sport_animaux',
+      '#checkbox-convocation',
+      '#checkbox-missions',
+      '#checkbox-enfants',
+    ];
+    await Promise.all([
+      ...fields.map(async (selector) => {
+        console.log(selector, await page.$eval(selector, (el) => el.value));
+      }),
+      ...checkboxes.map(async (selector) => {
+        console.log(selector, await page.$eval(selector, (el) => el.checked));
+      }),
+    ]);
+  }
+
   await page.click('#generate-btn');
 
   let filename;
@@ -57,7 +99,7 @@ export async function generatePdf(
       `An error occured, let's try again with link in the dom`,
       error
     );
-    page.click('a[download]');
+    await page.click('a[download]');
     filename = await waitForFile(dir, 10000);
   }
 
@@ -67,7 +109,7 @@ export async function generatePdf(
 
   await Promise.all([
     page.close(),
-    await util.promisify(fs.rename)(
+    util.promisify(fs.rename)(
       path.resolve(path.join(dir, filename)),
       path.resolve(path.join(dir, newFilename))
     ),

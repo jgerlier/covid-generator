@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { v4 as uuid } from 'uuid';
 
-export async function generateDocument(profile, reason) {
+export async function generateDocument(profile, reason, debug = false) {
   let userId = localStorage.getItem('userId');
   if (!userId) {
     userId = uuid();
@@ -14,6 +14,7 @@ export async function generateDocument(profile, reason) {
     ...profile,
     reason,
     userId,
+    debug,
   });
 
   //saveAs(fileLink, filename);
