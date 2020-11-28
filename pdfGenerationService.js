@@ -71,7 +71,7 @@ export async function generatePdf(
     ];
     const checkboxes = [
       '#checkbox-travail',
-      '#checkbox-achats',
+      '#checkbox-achats_culturel_cultuel',
       '#checkbox-sante',
       '#checkbox-famille',
       '#checkbox-handicap',
@@ -124,7 +124,7 @@ function getCheckboxIdFrom(reason) {
     case 'work':
       return '#checkbox-travail';
     case 'supply':
-      return '#checkbox-achats';
+      return '#checkbox-achats_culturel_cultuel';
     case 'health':
       return '#checkbox-sante';
     case 'familyAssistance':
