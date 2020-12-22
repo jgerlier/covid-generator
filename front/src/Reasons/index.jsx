@@ -19,11 +19,10 @@ export default function Reasons({ reason, onChange: handleChange }) {
         onChange={({ target: { value } }) => handleChange(value)}
       >
         <ReasonFormControlLabel value="work" label="Travail" />
-        <ReasonFormControlLabel value="supply" label="Achats" />
-        <ReasonFormControlLabel value="sport" label="Sport / promenade" />
-        <ReasonFormControlLabel value="children" label="Enfants" />
         <ReasonFormControlLabel value="health" label="Santé" />
         <ReasonFormControlLabel value="familyAssistance" label="Familiale" />
+        <ReasonFormControlLabel value="travel" label="Voyage" />
+        <ReasonFormControlLabel value="pets" label="Animaux de compagnie" />
         <ReasonFormControlLabel value="handicap" label="Handicap" />
         <ReasonFormControlLabel
           value="legal"

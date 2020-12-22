@@ -47,14 +47,12 @@ export async function generatePdf(
   await page.type('#field-address', address);
   await page.type('#field-city', city);
   await page.type('#field-zipcode', zipcode);
-  await page.$eval(
-    '#field-heuresortie',
-    (el) =>
-      (el.value = new Date().toLocaleString('fr-FR', {
-        hour: '2-digit',
-        minute: '2-digit',
-      }))
-  );
+  await page.$eval('#field-heuresortie', (el) => {
+    el.value = new Date().toLocaleString('fr-FR', {
+      hour: '2-digit',
+      minute: '2-digit',
+    });
+  });
 
   await page.click(getCheckboxIdFrom(reason));
 
@@ -71,14 +69,13 @@ export async function generatePdf(
     ];
     const checkboxes = [
       '#checkbox-travail',
-      '#checkbox-achats_culturel_cultuel',
+      '#checkbox-animaux',
       '#checkbox-sante',
       '#checkbox-famille',
       '#checkbox-handicap',
-      '#checkbox-sport_animaux',
       '#checkbox-convocation',
       '#checkbox-missions',
-      '#checkbox-enfants',
+      '#checkbox-transits',
     ];
     await Promise.all([
       ...fields.map(async (selector) => {
@@ -123,22 +120,20 @@ function getCheckboxIdFrom(reason) {
   switch (reason) {
     case 'work':
       return '#checkbox-travail';
-    case 'supply':
-      return '#checkbox-achats_culturel_cultuel';
     case 'health':
       return '#checkbox-sante';
     case 'familyAssistance':
       return '#checkbox-famille';
+    case 'travel':
+      return '#checkbox-transits';
+    case 'pets':
+      return '#checkbox-animaux';
     case 'handicap':
       return '#checkbox-handicap';
-    case 'sport':
-      return '#checkbox-sport_animaux';
     case 'legal':
       return '#checkbox-convocation';
     case 'mandatoryMissions':
       return '#checkbox-missions';
-    case 'children':
-      return '#checkbox-enfants';
   }
 }
 
