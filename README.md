@@ -1,4 +1,4 @@
-Deployed at https://covid-generator.herokuapp.com/
+~~Deployed at https://covid-generator.herokuapp.com/~~
 
 ## How is the PDF generated ?
 
